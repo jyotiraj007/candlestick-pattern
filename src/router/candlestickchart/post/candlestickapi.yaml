@@ -1,0 +1,72 @@
+components:
+  schemas:
+    candlestickData:
+      type: object
+      properties:
+        candlestickCSV:
+          type: string
+          format: binary
+          description: csv file
+    error:         
+      type:  object
+      properties:
+        description:
+          type: string
+        details:
+          type:  object
+
+        
+
+paths:
+  /zip:
+    post:
+      tags:
+        - Candle Stick Pattern
+      summary: Generate candle stick pattern kit.
+      description: This API takes csv file and pattern type and generates a zip
+                   that contain two folders<br><br>
+                   Raw Chart<br>
+                   ------------------ <br>
+                   This folder contains raw csv file and html file 
+                   to show candle stick pattern based on raw csv files.<br><br>
+                   Curated Chart<br>
+                   ------------------ <br>
+                   This folder contains curated csv file based 
+                   on pattern type passed in request and an html file to show candle 
+                   stick chart based on new curated csv file
+      parameters:
+        - in: query
+          name: patternType
+          description:  Allowed Value is 'hammer' for now. later on it can suport multiple options.
+          schema:
+            type: string
+            enum: ["hammer"]
+          required: true
+          
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref:  "#/components/schemas/candlestickData"
+              required:  
+                - candlestickData
+        required:  true
+
+      responses:
+        '200':
+          description: Candle Stick Pattern Kit is generated successfully.
+
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref:  "#/components/schemas/error"
+                           
+        '500':
+          description: Unhandled error
+          content:
+            text/html:
+              schema:
+                type:  string 
+              
