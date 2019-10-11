@@ -7,6 +7,10 @@ components:
           type: string
           format: binary
           description: csv file
+        patternType:
+          type: string
+          description: for now patternType allowed value is 'hammer'
+          required: true
     error:         
       type:  object
       properties:
@@ -34,15 +38,7 @@ paths:
                    This folder contains curated csv file based 
                    on pattern type passed in request and an html file to show candle 
                    stick chart based on new curated csv file
-      parameters:
-        - in: query
-          name: patternType
-          description:  Allowed Value is 'hammer' for now. later on it can suport multiple options.
-          schema:
-            type: string
-            enum: ["hammer"]
-          required: true
-          
+
       requestBody:
         content:
           multipart/form-data:

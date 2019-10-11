@@ -3,9 +3,10 @@ const commonErrors = require('common-errors');
 const Processor = require('./../../../processor');
 const errors = require('../../../core/errors');
 const Analytics = require('../../../analytics');
+const Validator = require('./validator');
 
 /**
- * Class WebFontPostAPI
+ * Class CandleStickPostAPI
  */
 class CandleStickPostAPI {
     /**
@@ -25,8 +26,7 @@ class CandleStickPostAPI {
                     },
                 })),
             default: () => (new commonErrors.HttpStatusError(
-                HttpStatusCode.INTERNAL_SERVER_ERROR,
-                {
+                HttpStatusCode.INTERNAL_SERVER_ERROR, {
                     errorMessage: error.message.errorMessage,
                     details: {
                         sourceType: error.message.sourceType,
@@ -45,15 +45,15 @@ class CandleStickPostAPI {
      * Sends analytics
      *
      * @param {Request} req - Request
-     * @param {WFKit} wfKit - WFKit model that contains analytics data
+     * @param {Object} analyticsData - json object that contains analytics data
      * @returns {unidentified} - Unidentified
      */
-    static sendAnalytics(req, wfKit) {
-        Analytics.logInfo(req, wfKit);
+    static sendAnalytics(req, analyticsData) {
+        Analytics.logInfo(req, analyticsData);
     }
 
     /**
-     * Post API to generate web font kit
+     * Post API to generate candlestickchart kit
      * It listens to pipe, finalize and error events of archiver
      *
      * @param {Object} req - Request Object
@@ -68,19 +68,24 @@ class CandleStickPostAPI {
      */
     static async createCandleStickKit(req, res, next) {
         try {
-            console.log('Api called')
             // Validating the request body
-            // Validator.validate({ headers: req.headers, body: req.body, });
+            Validator.validate({
+                patternType: req.body.patternType,
+                csvfile: req.body.candlestickCSV,
+            });
 
             // Creating Processor and listening to its events
-            const processor = new Processor(res);
+            const params = {};
+            params.stream = res;
+            params.patternType = req.body.patternType;
+            const processor = new Processor(params);
             processor.on('data', () => {
                 // Setting response for zip streaming
                 res.setHeader('Content-Type', 'application/zip');
                 res.attachment("CandleStick.zip");
             });
-            processor.on('finalize', (wfKit) => {
-                // CandleStickPostAPI.sendAnalytics(req, wfKit);
+            processor.on('finalize', (message) => {
+                CandleStickPostAPI.sendAnalytics(req, message);
             });
             processor.on('error', (error) => {
                 if (!res.headersSent) {

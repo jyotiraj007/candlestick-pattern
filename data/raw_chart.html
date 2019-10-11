@@ -17,8 +17,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
 		text: "Yearly Averages"
 	}],
 	axisX: {
-		interval: 1,
-		valueFormatString: "YYY"
+		interval: 12,
+		intervalType: "month",
+		valueFormatString: "MMM-YY",
+		labelAngle: -45
 	},
 	axisY: {
 		includeZero: false,
@@ -30,6 +32,8 @@ var chart = new CanvasJS.Chart("chartContainer", {
 	},
 	data: [{
 		type: "candlestick",
+		color: "blue",
+		risingColor: "red",
 		yValueFormatString: "$##0.00",
 		dataPoints: dataPoints
 	}]
@@ -38,14 +42,11 @@ var chart = new CanvasJS.Chart("chartContainer", {
 $.get("http://localhost:3000/candlestick/zip/rawcsv/", getDataPointsFromCSV);
 
 function getDataPointsFromCSV(csv) {
-    console.log('csv is: ',csv)
 	var csvLines = points = [];
     csvLines = csv.split(/[\r?\n|\r|\n]+/);
-    console.log(csvLines.length)
 	for (var i = 1; i < csvLines.length; i++) {
 		if (csvLines[i].length > 0) {
             points = csvLines[i].split(",");
-            console.log(points)
 			dataPoints.push({
 				x: new Date(
 					parseInt(points[0].split("-")[0]),
@@ -61,7 +62,6 @@ function getDataPointsFromCSV(csv) {
 			});
 		}
     }
-    console.log(dataPoints)
 	chart.render();
 }
 

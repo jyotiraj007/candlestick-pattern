@@ -1,4 +1,3 @@
-// const csvdata = require('../../../../data/generated/data.csv');
 const http = require('http');
 const fileSystem = require('fs');
 const path = require('path');

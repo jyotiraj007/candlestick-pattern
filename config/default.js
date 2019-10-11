@@ -10,6 +10,7 @@ module.exports = {
         ROOT_URI: '/candlestick',
         BASE_URI: defer(cfg => `${cfg.api.ROOT_URI}/`),
     },
+    enableSwagger: true,
     env: {
         mode: process.env.NODE_ENV,
         host: process.env.HOST || 'localhost',
@@ -25,11 +26,13 @@ module.exports = {
             count: 3,
         },
     },
-    enableSwagger: true,
+    patternTypes: ['hammer'],
     swagger: {
         serverURL: defer(cfg => `${cfg.env.host}:${cfg.env.port}`),
-        schemes: ['https', 'http',
-        ],
+        schemes: ['https', 'http', ],
         defaultScheme: 'http',
     },
+    hammer_height_threshhold: 10,
+    body_upper_bound_threshhold: .3,
+    body_lower_bound_threshhold: .2,
 }
