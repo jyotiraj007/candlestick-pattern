@@ -6,8 +6,8 @@ This is an API which takes a csv file and and pattern type as input and yields a
 * raw_chart.html: Shows the candlestick chart based on the raw_data.csv.
 
 ## Tech stack
-Development language: [Javascript][js]
-Development frameworks: [Nodejs][node], [Express][express]
+* Development language: [Javascript][js]
+* Development frameworks: [Nodejs][node], [Express][express]
 
 ## Prerequites
 * Install node, npm
