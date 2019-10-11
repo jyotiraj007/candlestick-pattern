@@ -1,5 +1,5 @@
 # Candle Stick Pattern Generator
-This is an API which takes a csv file and and pattern type as input and yields a zip file containing:
+This project provide an API which takes a csv file and and pattern type as input and yields a zip file containing:
 * curated_data.csv: Contains csv data filtered from raw csv data for a given pattern type.
 * curated_chart.html: Shows the candlestick chart for curated_data.csv.
 * raw_data.csv: Its the input raw csv data provided as input.
