@@ -38,20 +38,20 @@ This project provides an API which takes a csv file and and pattern type as inpu
     http://localhost:3000/candlestick/docs/
     ```
 * In swagger doc 
- - Click on post API to expand the doc for API.
- - Click on "Try it out" button.
- - In Request body section 
-    - Click on "choose file" button to select the raw csv file.
-    - Provide the value as "hammer" for the key "patternType".
- - Click on "Execute" button.
- - Goto "Server response" section under "Responses" section and a "Download file" link would be visible in 200 status code.
- - Click on "Download file" link to download a zip file which contains two folders
-    - curated_chart
-        - curated_chart.html: Shows the output candlesticj chart(hammer pattern).
-        - curated_data.csv: Contains output csv data for hammer pattern.
-    - raw_chart
-        - raw_chart.html: Shows the raw candlestick chart(All the available patterns).
-        - raw_data.csv: Contains raw csv data for all the patterns.
+    - Click on post API to expand the doc for API.
+    - Click on "Try it out" button.
+    - In Request body section 
+        - Click on "choose file" button to select the raw csv file.
+        - Provide the value as "hammer" for the key "patternType".
+    - Click on "Execute" button.
+    - Goto "Server response" section under "Responses" section and a "Download file" link would be visible in 200 status code.
+    - Click on "Download file" link to download a zip file which contains two folders
+        - curated_chart
+            - curated_chart.html: Shows the output candlestick chart(hammer pattern).
+            - curated_data.csv: Contains output csv data for hammer pattern.
+        - raw_chart
+            - raw_chart.html: Shows the raw candlestick chart(All the available patterns).
+            - raw_data.csv: Contains raw csv data for all the patterns.
 
 ## In Progress
 * Validation of input csv file
